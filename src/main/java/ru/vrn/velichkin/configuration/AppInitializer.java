@@ -1,4 +1,4 @@
-package com.websystique.springmvc.configuration;
+package ru.vrn.velichkin.configuration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

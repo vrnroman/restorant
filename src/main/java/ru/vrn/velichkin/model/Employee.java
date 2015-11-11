@@ -1,4 +1,4 @@
-package com.websystique.springmvc.model;
+package ru.vrn.velichkin.model;
 
 import java.math.BigDecimal;
 

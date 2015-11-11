@@ -1,4 +1,4 @@
-package com.websystique.springmvc.configuration;
+package ru.vrn.velichkin.configuration;
 
 import java.util.Properties;
 
@@ -29,7 +29,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.websystique.springmvc.model" });
+        sessionFactory.setPackagesToScan(new String[] { "ru.vrn.velichkin.model" });
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
      }

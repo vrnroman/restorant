@@ -1,4 +1,4 @@
-package com.websystique.springmvc.service;
+package ru.vrn.velichkin.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.websystique.springmvc.dao.EmployeeDao;
-import com.websystique.springmvc.model.Employee;
+import ru.vrn.velichkin.dao.EmployeeDao;
+import ru.vrn.velichkin.model.Employee;
 
 @Service("employeeService")
 @Transactional

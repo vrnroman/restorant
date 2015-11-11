@@ -1,4 +1,4 @@
-package com.websystique.springmvc.dao;
+package ru.vrn.velichkin.dao;
 
 import java.io.Serializable;
 

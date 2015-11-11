@@ -1,4 +1,4 @@
-package com.websystique.springmvc.controller;
+package ru.vrn.velichkin.controller;
 
 import java.util.List;
 import java.util.Locale;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.websystique.springmvc.model.Employee;
-import com.websystique.springmvc.service.EmployeeService;
+import ru.vrn.velichkin.model.Employee;
+import ru.vrn.velichkin.service.EmployeeService;
 
 @Controller
 @RequestMapping("/")
