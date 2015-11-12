@@ -13,12 +13,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "RSTR_MENU")
 public class Menu extends AbstractEntity {
 
     @Column(name = "ACTUAL_DATE", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date actualDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

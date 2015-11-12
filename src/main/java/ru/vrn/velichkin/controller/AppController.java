@@ -22,7 +22,7 @@ import ru.vrn.velichkin.service.EmployeeService;
 @RequestMapping("/")
 public class AppController {
 
-	@Autowired
+//	@Autowired
 	EmployeeService service;
 	
 	@Autowired

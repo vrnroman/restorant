@@ -13,7 +13,7 @@ import ru.vrn.velichkin.model.Employee;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
-	@Autowired
+//	@Autowired
 	private EmployeeDao dao;
 	
 	public Employee findById(int id) {

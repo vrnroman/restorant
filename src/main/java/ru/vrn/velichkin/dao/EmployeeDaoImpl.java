@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import ru.vrn.velichkin.model.Employee;
 
-@Repository("employeeDao")
+//@Repository("employeeDao")
 public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements EmployeeDao {
 
 	public Employee findById(int id) {
