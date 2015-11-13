@@ -34,7 +34,7 @@ public class StartupInitializer {
     
     @PostConstruct
     public void loadTestData() {
-        databaseFiller.loadTestData();
+        databaseFiller.saveTestData();
     }
     
 }
