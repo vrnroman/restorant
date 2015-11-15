@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ru.vrn.velichkin.service;
 
 import java.util.Calendar;
@@ -15,6 +11,7 @@ import ru.vrn.velichkin.model.Menu;
 import ru.vrn.velichkin.model.Restorant;
 import ru.vrn.velichkin.model.User;
 import ru.vrn.velichkin.model.Voting;
+import ru.vrn.velichkin.utils.DateUtils;
 
 /**
  *
@@ -33,9 +30,13 @@ public class VotingService {
 
     @Autowired
     private VotingDao votingDao;
-
-    public boolean vote(Restorant restorant, User user) {
-        return vote(restorant, user, new Date(), true);
+    
+    public boolean vote(Long menuId, User user) {
+        Menu menu = menuDao.findById(menuId);
+        if (menu == null) {
+            return false;
+        }
+        return vote(menu.getRestorant(), user, menu.getActualDate(), true);
     }
 
     //should be private
@@ -60,7 +61,7 @@ public class VotingService {
 
     private boolean validate(Restorant restorant, User user, Date date) {
         //Can't vote for past time
-        if (isDateInPast(date)) {
+        if (DateUtils.isDateInPast(date)) {
             return false;
         }
         //Can't vote for the restorant without menu
@@ -77,14 +78,6 @@ public class VotingService {
         return true;
     }
 
-    private boolean isDateInPast(Date date) {
-        Calendar currentDate = Calendar.getInstance();
-        currentDate.set(Calendar.HOUR_OF_DAY, currentDate.getActualMinimum(Calendar.HOUR_OF_DAY));
-        currentDate.set(Calendar.MINUTE, currentDate.getActualMinimum(Calendar.MINUTE));
-        currentDate.set(Calendar.SECOND, currentDate.getActualMinimum(Calendar.SECOND));
-        currentDate.set(Calendar.MILLISECOND, currentDate.getActualMinimum(Calendar.MILLISECOND));
-        return !currentDate.after(date);
-    }
 
     private boolean isAfterDeadline() {
         return Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= DEADLINE;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.vrn.velichkin.dao;
 
 import java.math.BigDecimal;
@@ -23,6 +18,7 @@ import ru.vrn.velichkin.model.Restorant;
 import ru.vrn.velichkin.model.Role;
 import ru.vrn.velichkin.model.User;
 import ru.vrn.velichkin.model.Voting;
+import ru.vrn.velichkin.service.UserService;
 import ru.vrn.velichkin.service.VotingService;
 
 /**
@@ -39,7 +35,18 @@ public class DatabaseFiller {
     @Autowired
     private VotingService votingService;
     
+    @Autowired
+    private UserService userService;
+    
+    private boolean isDataExists() {
+        return userService.isAtLeastOneUserExists();
+    }
+    
     public void saveTestData() {
+        //shouldn't create when data allready exists
+        if (isDataExists()) {
+            return;
+        }
         //restorant
         Restorant r1 = Restorant.build("First rstr");
         r1 = em.merge(r1);

@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.vrn.velichkin.dao;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -32,6 +27,23 @@ public class MenuDao {
     
     @PersistenceContext
     private EntityManager em;
+    
+    public Menu findById(Long menuId) {
+        return em.find(Menu.class, menuId);
+    }
+    
+    public void save(Menu menu) {
+        em.merge(menu);
+    }
+    
+    
+    public List<Menu> getAllMenu() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Menu> query = cb.createQuery(Menu.class);
+        Root<Menu> from = query.from(Menu.class);
+        TypedQuery<Menu> q = em.createQuery(query);
+        return q.getResultList();
+    }
     
     /**
      * Find restorant's menu for the specified date.

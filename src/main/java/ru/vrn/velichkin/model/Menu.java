@@ -24,7 +24,8 @@ public class Menu extends AbstractEntity {
     @Temporal(TemporalType.DATE)
     private Date actualDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    //replace to LAZY after DTO creation
+    @OneToMany(fetch = FetchType.EAGER/*LAZY*/, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name = "RSTR_MENU_TO_MENU_ITEM",
             joinColumns = @JoinColumn(name = "MENU_ID"),
             inverseJoinColumns = @JoinColumn(name = "MENU_ITEM_ID"))

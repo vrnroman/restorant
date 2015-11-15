@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 public class User extends AbstractEntity {
 
     @Size(max = 80)
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "NAME", nullable = false, unique = true)
     private String name;
     
     @Size(max = 80)

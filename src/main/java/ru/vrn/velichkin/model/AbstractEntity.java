@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.vrn.velichkin.model;
 
 import javax.persistence.GeneratedValue;
@@ -19,20 +14,23 @@ public class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Override
     public int hashCode() {
+        if (id == null) {
+            return super.hashCode();
+        }
         int hash = 5;
-        hash = 47 * hash + this.id;
+        hash = (int) (47 * hash + this.id);
         return hash;
     }
 
