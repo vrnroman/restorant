@@ -2,6 +2,7 @@ package ru.vrn.velichkin.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 import java.util.Date;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,7 +17,7 @@ import ru.vrn.velichkin.model.User;
 
 /**
  * Operations with users.
- * 
+ *
  * @author Roman
  */
 @Component
@@ -32,7 +33,7 @@ public class UserService {
      * Http header name for token.
      */
     public static final String HEADER_SECURITY_TOKEN = "X-Auth-Token";
-    
+
     /**
      * token's life time
      */
@@ -46,7 +47,8 @@ public class UserService {
 
     /**
      * Testing: is users db table not emplty?
-     * @return 
+     *
+     * @return
      */
     public boolean isAtLeastOneUserExists() {
         return userDao.usersCount() > 0;
@@ -54,12 +56,14 @@ public class UserService {
 
     /**
      * Create auth token for user.
+     *
      * @param userName
      * @param password
-     * @return 
+     * @return
      */
     public String createToken(String userName, String password) {
-        String decodedPassword = password; /*new String(Base64.getDecoder().decode(password), "UTF-8");*/
+        String decodedPassword = password;
+        /*new String(Base64.getDecoder().decode(password), "UTF-8");*/
         User user = userDao.findByName(userName);
         if (user != null) {
             if (user.getName().equals(userName) && user.getPassword().equals(decodedPassword)) {
@@ -83,8 +87,9 @@ public class UserService {
 
     /**
      * Validate token
+     *
      * @param token
-     * @return 
+     * @return
      */
     public boolean validate(String token) {
         if (StringUtils.isNotEmpty(token)) {
@@ -107,24 +112,30 @@ public class UserService {
 
     /**
      * Get User entity from token.
+     *
      * @param token
-     * @return 
+     * @return
      */
     public User parseToken(String token) {
-        String userName = Jwts.parser()
-                .setSigningKey(AUTH_SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        try {
+            String userName = Jwts.parser()
+                    .setSigningKey(AUTH_SECRET_KEY)
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
 
-        return userDao.findByName(userName);
+            return userDao.findByName(userName);
+        } catch (SignatureException ex) {
+            return null;
+        }
     }
 
     /**
      * Testing: has user a role?
+     *
      * @param user
      * @param role
-     * @return 
+     * @return
      */
     public boolean hasRole(User user, String role) {
         user = em.find(User.class, user.getId());

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.vrn.velichkin.dao.MenuDao;
 import ru.vrn.velichkin.dao.VotingDao;
 import ru.vrn.velichkin.model.Menu;
@@ -19,6 +20,7 @@ import ru.vrn.velichkin.utils.DateUtils;
  * @author Roman
  */
 @Component
+@Transactional
 public class VotingService {
 
     /**
@@ -78,7 +80,8 @@ public class VotingService {
         }
         //Can't vote for the restorant twice after deadline time (11 A.M.)
         Voting voting = votingDao.findVote(user, date);
-        if (voting != null && isAfterDeadline()) {
+        if (voting != null && isAfterDeadline() && 
+                org.apache.commons.lang3.time.DateUtils.isSameDay(new Date(), date)) {
             return false;
         }
         //all ok
