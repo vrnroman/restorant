@@ -16,14 +16,25 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * Menu.
+ * 
+ * @author Roman
+ */
 @Entity
 @Table(name = "RSTR_MENU")
 public class Menu extends AbstractEntity {
 
+    /**
+     * Menu changed every day.
+     */
     @Column(name = "ACTUAL_DATE", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date actualDate;
 
+    /**
+     * Dishes.
+     */
     //replace to LAZY after DTO creation
     @OneToMany(fetch = FetchType.EAGER/*LAZY*/, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(name = "RSTR_MENU_TO_MENU_ITEM",
@@ -31,6 +42,9 @@ public class Menu extends AbstractEntity {
             inverseJoinColumns = @JoinColumn(name = "MENU_ITEM_ID"))
     private List<MenuItem> items = new ArrayList<MenuItem>();
 
+    /**
+     * Restorant.
+     */
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "RESTORANT_ID")
     private Restorant restorant;

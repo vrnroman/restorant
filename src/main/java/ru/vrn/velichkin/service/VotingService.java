@@ -14,7 +14,8 @@ import ru.vrn.velichkin.model.Voting;
 import ru.vrn.velichkin.utils.DateUtils;
 
 /**
- *
+ * Service for voting operation.
+ * 
  * @author Roman
  */
 @Component
@@ -31,6 +32,12 @@ public class VotingService {
     @Autowired
     private VotingDao votingDao;
     
+    /**
+     * User want to vote for the menu.
+     * @param menuId
+     * @param user
+     * @return true - when voting is successfull.
+     */
     public boolean vote(Long menuId, User user) {
         Menu menu = menuDao.findById(menuId);
         if (menu == null) {
@@ -79,6 +86,10 @@ public class VotingService {
     }
 
 
+    /**
+     * Testing: is current time after deadline time?
+     * @return 
+     */
     private boolean isAfterDeadline() {
         return Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= DEADLINE;
     }

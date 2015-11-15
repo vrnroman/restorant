@@ -21,20 +21,14 @@ import ru.vrn.velichkin.model.Voting;
 import ru.vrn.velichkin.model.Voting_;
 
 /**
- *
+ * 
  * @author Roman
  */
 @Component
 @Transactional
-public class VotingDao {
+public class VotingDao extends AbstractDao<Voting> {
     
-    @PersistenceContext
-    private EntityManager em;
-    
-    public Voting save(Voting voting) {
-        return em.merge(voting);
-    }
-    
+
     /**
      * Find user's vote for the specified date.
      * @param user

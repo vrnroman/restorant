@@ -2,7 +2,6 @@ package ru.vrn.velichkin.model;
 
 
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,20 +9,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
+/**
+ * Voting.
+ * 
+ * @author Roman
+ */
 @Entity
 @Table(name = "RSTR_VOTING")
 public class Voting extends AbstractEntity {
 
+    /**
+     * Voted user.
+     */
     @ManyToOne(optional = false, cascade = {})
     @JoinColumn(name = "USER_ID")
     private User user;
     
+    /**
+     * Restorant.
+     */
     @ManyToOne(optional = false, cascade = {})
     @JoinColumn(name = "RESTORANT_ID")
     private Restorant restorant;
     
+    /**
+     * Date, when restorant's menu was liked more, than others.
+     */
     @Column(name = "VOTING_DATE", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;

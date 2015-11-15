@@ -9,14 +9,25 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Menu item (dish).
+ * 
+ * @author Roman
+ */
 @Entity
 @Table(name = "RSTR_MENU_ITEM")
 public class MenuItem extends AbstractEntity {
 
+    /**
+     * Dish name.
+     */
     @Size(max = 80)
     @Column(name = "NAME", nullable = false)
     private String name;
 
+    /**
+     * Dish price.
+     */
     @NotNull
     @Digits(integer = 8, fraction = 2)
     @Column(name = "PRICE", nullable = false)

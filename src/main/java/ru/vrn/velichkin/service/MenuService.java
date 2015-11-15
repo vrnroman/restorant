@@ -20,9 +20,13 @@ public class MenuService {
     private MenuDao menuDao;
     
     public List<Menu> getAllMenu() {
-        return menuDao.getAllMenu();
+        return menuDao.getAllEntities();
     }
     
+    /**
+     * Add new menu.
+     * @param menu 
+     */
     public void save(Menu menu) {
         save(menu, true);
     }
@@ -34,6 +38,11 @@ public class MenuService {
         }
     }
     
+    /**
+     * Testing: is menu valid for adding?
+     * @param menu
+     * @return 
+     */
     private boolean validate(Menu menu) {
         //date can't be null or in past
         if (menu.getActualDate() == null || DateUtils.isDateInPast(menu.getActualDate())) {

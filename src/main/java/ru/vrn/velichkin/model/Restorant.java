@@ -6,10 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+/**
+ * Restorant.
+ * 
+ * @author Roman
+ */
 @Entity
 @Table(name = "RSTR_RESTORANT")
 public class Restorant extends AbstractEntity {
 
+    /**
+     * Restorant name.
+     */
     @Size(max = 80)
     @Column(name = "NAME", nullable = false)
     private String name;

@@ -18,10 +18,7 @@ import ru.vrn.velichkin.model.User_;
  */
 @Component
 @Transactional
-public class UserDao {
-    
-    @PersistenceContext
-    private EntityManager em;
+public class UserDao extends AbstractDao<User>{
     
     public long usersCount() {
         CriteriaBuilder cb = em.getCriteriaBuilder();

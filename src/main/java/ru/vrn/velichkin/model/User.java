@@ -13,18 +13,32 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+/**
+ * User.
+ * 
+ * @author Roman
+ */
 @Entity
 @Table(name = "RSTR_USER")
 public class User extends AbstractEntity {
 
+    /**
+     * Username (login). Must be unique.
+     */
     @Size(max = 80)
     @Column(name = "NAME", nullable = false, unique = true)
     private String name;
     
+    /**
+     * Password. Should be encrypted in future.
+     */
     @Size(max = 80)
     @Column(name = "PASSWORD", nullable = false)
     private String password;
     
+    /**
+     * Every user could have several roles.
+     */
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "RSTR_USER_TO_ROLE",
             joinColumns = @JoinColumn(name = "USER_ID"),

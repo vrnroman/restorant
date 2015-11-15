@@ -23,27 +23,7 @@ import ru.vrn.velichkin.model.Restorant;
  */
 @Component
 @Transactional
-public class MenuDao {
-    
-    @PersistenceContext
-    private EntityManager em;
-    
-    public Menu findById(Long menuId) {
-        return em.find(Menu.class, menuId);
-    }
-    
-    public void save(Menu menu) {
-        em.merge(menu);
-    }
-    
-    
-    public List<Menu> getAllMenu() {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Menu> query = cb.createQuery(Menu.class);
-        Root<Menu> from = query.from(Menu.class);
-        TypedQuery<Menu> q = em.createQuery(query);
-        return q.getResultList();
-    }
+public class MenuDao extends AbstractDao<Menu> {
     
     /**
      * Find restorant's menu for the specified date.

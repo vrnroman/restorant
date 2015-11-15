@@ -22,6 +22,7 @@ import ru.vrn.velichkin.service.UserService;
 import ru.vrn.velichkin.service.VotingService;
 
 /**
+ * Class for simple start initialization. For testing.
  *
  * @author Roman
  */
@@ -56,18 +57,16 @@ public class DatabaseFiller {
         //menu item
         int number = 0;
         List<MenuItem> items = new ArrayList<MenuItem>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             MenuItem menuItem = MenuItem.build("Dish #" + ++number, BigDecimal.valueOf(number));
             items.add(menuItem);
         }
         
         //menu
         Calendar c = Calendar.getInstance();
-        for (int i = 0; i < 20; i = i + 5) {
+        c.add(Calendar.DATE, 1);
+        for (int i = 0; i < 10; i = i + 5) {
             Menu m = Menu.build(c.getTime(), items.subList(i, i + 5), (i % 2 == 0 ? r1 : r2));
-            if (i % 2 != 0) {
-                c.add(Calendar.DATE, 1);
-            }
             em.merge(m);
         }
         
@@ -81,17 +80,14 @@ public class DatabaseFiller {
         User admin = User.build("admin", "admin", Arrays.asList(adminRole));
         User superUser = User.build("super", "super", Arrays.asList(adminRole, userRole));
         User user1 = User.build("user1", "user1", Arrays.asList(userRole));
-        User user2 = User.build("user2", "user2", Arrays.asList(userRole));
         admin = em.merge(admin);
         superUser = em.merge(superUser);
         user1 = em.merge(user1);
-        user2 = em.merge(user2);
         
         //voting
-        votingService.vote(r1, user1, new Date(), false);
-        votingService.vote(r2, user1, new Date(), false);
-        votingService.vote(r2, user2, new Date(), false);
         votingService.vote(r1, user1, c.getTime(), false);
+        votingService.vote(r2, user1, c.getTime(), false);
+        votingService.vote(r1, superUser, c.getTime(), false);
     }
     
     

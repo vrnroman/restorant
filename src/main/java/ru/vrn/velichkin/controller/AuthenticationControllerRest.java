@@ -19,11 +19,6 @@ import ru.vrn.velichkin.service.UserService;
 public class AuthenticationControllerRest {
 
     /**
-     * token's life time
-     */
-    private static final long TOKEN_LIFE_TIME = 10 * 60 * 60 * 1000; //10 hours
-
-    /**
      * Сервис для работы с сотрудниками.
      */
     @Autowired
@@ -33,6 +28,6 @@ public class AuthenticationControllerRest {
     @RequestMapping(value = "/token", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     @ResponseBody
     public String getAuthToken(@RequestBody UserDTO userDTO) {
-        return userService.createToken(userDTO.getName(), userDTO.getPassword(), TOKEN_LIFE_TIME);
+        return userService.createToken(userDTO.getName(), userDTO.getPassword());
     }
 }
